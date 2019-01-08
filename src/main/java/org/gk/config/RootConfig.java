@@ -5,10 +5,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +23,7 @@ import javax.sql.DataSource;
 		excludeFilters = {
 				@ComponentScan.Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class)
 		})
+@EnableJpaRepositories(basePackages = "org.gk.business.data.repositories.interfaces")
 public class RootConfig {
 
 	@Bean
@@ -33,8 +38,24 @@ public class RootConfig {
 	}
 
 	@Bean
-	public NamedParameterJdbcTemplate jdbcTemplate(DataSource dataSource) {
-		return new NamedParameterJdbcTemplate(dataSource);
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+			DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
+		LocalContainerEntityManagerFactoryBean emfb =
+				new LocalContainerEntityManagerFactoryBean();
+		emfb.setDataSource(dataSource);
+		emfb.setJpaVendorAdapter(jpaVendorAdapter);
+		emfb.setPackagesToScan("org.gk.business.data.model");
+		return emfb;
+	}
+
+	@Bean
+	public JpaVendorAdapter jpaVendorAdapter() {
+		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+		adapter.setDatabase(Database.HSQL);
+		adapter.setShowSql(true);
+		adapter.setGenerateDdl(false);
+		adapter.setDatabasePlatform("org.hibernate.dialect.HSQLDialect");
+		return adapter;
 	}
 
 	@PostConstruct

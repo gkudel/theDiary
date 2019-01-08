@@ -20,7 +20,7 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {
-        model.addAttribute(entryRepository.getEntries(7));
-        return "home";
+        model.addAttribute(entryRepository.findTop7ByOrderByTimeDesc());
+        return "home/home";
     }
 }

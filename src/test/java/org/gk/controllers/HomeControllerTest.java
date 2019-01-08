@@ -36,14 +36,14 @@ public class HomeControllerTest {
                 .map(i -> new Entry(i, "Title","News" + i, new Date()))
                 .collect(Collectors.toList());
         EntryRepository newsRepository = mock(EntryRepository.class);
-        when(newsRepository.getEntries(7)).thenReturn(news);
+        when(newsRepository.findTop7ByOrderByTimeDesc()).thenReturn(news);
 
         HomeController homeController = new HomeController(newsRepository);
         MockMvc mockMvc = standaloneSetup(homeController)
                 .build();
 
         mockMvc.perform(get("/"))
-                .andExpect(view().name("home"))
+                .andExpect(view().name("home/home"))
                 .andExpect(model().attributeExists("entryList"))
                 .andExpect(model().attribute("entryList", hasItems(news.toArray())));
     }
