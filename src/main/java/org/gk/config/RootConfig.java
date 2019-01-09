@@ -1,10 +1,12 @@
 package org.gk.config;
 
 import org.hsqldb.util.DatabaseManagerSwing;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -56,6 +58,11 @@ public class RootConfig {
 		adapter.setGenerateDdl(false);
 		adapter.setDatabasePlatform("org.hibernate.dialect.HSQLDialect");
 		return adapter;
+	}
+
+	@Bean
+	public BeanPostProcessor persistenceTranslation() {
+		return new PersistenceExceptionTranslationPostProcessor();
 	}
 
 	@PostConstruct
