@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
@@ -64,5 +65,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceHandler("/webjars/**")
                 .addResourceLocations("/webjars/")
                 .resourceChain(false);
+        registry
+                .addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/")
+                .setCachePeriod(3600)
+                .resourceChain(true)
+                .addResolver(new PathResourceResolver());
     }
 }

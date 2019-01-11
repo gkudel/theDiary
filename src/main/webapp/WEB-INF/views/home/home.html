@@ -3,8 +3,8 @@
 <head th:replace="~{fragments/header :: header}"></head>
 <body>
     <div th:replace="~{fragments/toolbar :: toolbar}">Header</div>
-    <main role="main">
-        <div class="jumbotron" th:if="${not #lists.isEmpty(entryList)}">
+    <main role="main" th:if="${not #lists.isEmpty(entryList)}">
+        <div class="jumbotron">
             <div class="container" th:with="longText = ${#strings.length(entryList[0].text) > 200}">
                 <h1 class="display-3" th:text="${entryList[0].title}">Title</h1>
                 <p class="lead" th:if="${longText}" th:text="${#strings.substring(entryList[0].text,0, 200) + '...'}">Text</p>
@@ -12,19 +12,24 @@
                 <a class="btn btn-primary btn-lg" href="#" role="button">View details &raquo;</a>
             </div>
         </div>
-        <div class="container">
-            <div th:if="${#lists.size(entryList) > 1}">
-                <div class="row" th:each="iIndex:${#numbers.sequence(0, T(Math).floor((#lists.size(entryList) - 2) / 3))}">
-                    <div class="col-md-4" th:each="index:${#numbers.sequence(iIndex*3 + 1, #lists.size(entryList) > iIndex*3 + 3 ? iIndex*3 + 3 :  #lists.size(entryList) - 1)}" th:object="${entryList[index]}"
-                         th:with="longText = *{#strings.length(text) > 100}">
-                        <h2 th:text="*{title}">Title</h2>
-                        <p th:if="${longText}" th:text="*{#strings.substring(text,0, 100) + '...'}">Text</p>
-                        <p th:unless="${longText}" th:text="*{text}">Text</p>
-                        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                    </div>
+        <div class="container" th:if="${#lists.size(entryList) > 1}">
+            <div class="row" th:each="iIndex:${#numbers.sequence(0, T(Math).floor((#lists.size(entryList) - 2) / 3))}">
+                <div class="col-md-4" th:each="index:${#numbers.sequence(iIndex*3 + 1, #lists.size(entryList) > iIndex*3 + 3 ? iIndex*3 + 3 :  #lists.size(entryList) - 1)}" th:object="${entryList[index]}"
+                     th:with="longText = *{#strings.length(text) > 100}">
+                    <h2 th:text="*{title}">Title</h2>
+                    <p th:if="${longText}" th:text="*{#strings.substring(text,0, 100) + '...'}">Text</p>
+                    <p th:unless="${longText}" th:text="*{text}">Text</p>
+                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
                 </div>
             </div>
             <hr>
+        </div>
+    </main>
+    <main role="main" th:if="${#lists.isEmpty(entryList)}">
+        <div class="jumbotron">
+            <div class="container text-center">
+                <span class="fas fa-battery-empty fa-10x"></span>
+            </div>
         </div>
     </main>
     <div th:replace="~{fragments/footer :: footer}">Footer</div>

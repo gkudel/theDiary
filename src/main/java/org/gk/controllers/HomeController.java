@@ -27,6 +27,8 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {
         model.addAttribute(MoreObjects.firstNonNull(entryRepository.findTop7ByOrderByTimeDesc(), new ArrayList<Entry>()));
+        //model.addAttribute(MoreObjects.firstNonNull(entryRepository.findAll(EntrySpecification.hasTitle("Title9")), new ArrayList<Entry>()));
+        //model.addAttribute(MoreObjects.firstNonNull(entryRepository.findAll(QEntry.entry.), new ArrayList<Entry>()));
         return "home/home";
     }
 }

@@ -73,7 +73,6 @@
     <orderEntry type="library" name="Maven: com.sun.istack:istack-commons-runtime:3.0.7" level="project" />
     <orderEntry type="library" name="Maven: org.jvnet.staxex:stax-ex:1.8" level="project" />
     <orderEntry type="library" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.15" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.hibernate:hibernate-jpamodelgen:5.4.0.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.querydsl:querydsl-apt:4.2.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.querydsl:querydsl-codegen:4.2.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.mysema.codegen:codegen:0.6.8" level="project" />
