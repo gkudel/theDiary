@@ -10,9 +10,9 @@ import java.util.Date;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@RequiredArgsConstructor()
+@RequiredArgsConstructor
 @NoArgsConstructor
-@Entity()
+@Entity
 public class Entry {
     @EqualsAndHashCode.Include
     @NonNull
