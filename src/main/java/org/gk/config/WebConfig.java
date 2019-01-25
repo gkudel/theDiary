@@ -1,5 +1,6 @@
 package org.gk.config;
 
+import org.gk.tools.thymeleaf.dialect.FormDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -41,7 +42,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Description("Thymeleaf Template Engine")
     public TemplateEngine templateEngine(ServletContextTemplateResolver templateResolver) {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setEnableSpringELCompiler(true);
         templateEngine.setTemplateResolver(templateResolver);
+        templateEngine.addDialect(new FormDialect("form", "fragments"));
         return templateEngine;
     }
 

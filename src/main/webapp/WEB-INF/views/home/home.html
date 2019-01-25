@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header}"></head>
 <body>
@@ -9,7 +9,7 @@
                 <h1 class="display-3" th:text="${entryList[0].title}">Title</h1>
                 <p class="lead" th:if="${longText}" th:text="${#strings.substring(entryList[0].text,0, 200) + '...'}">Text</p>
                 <p class="lead" th:unless="${longText}" th:text="${entryList[0].text}">Text</p>
-                <a class="btn btn-primary btn-lg" href="#" role="button">View details &raquo;</a>
+                <a class="btn btn-primary btn-lg" href="href" th:href="@{/entry/get/{id}(id=${entryList[0].id})}" role="button">View details &raquo;</a>
             </div>
         </div>
         <div class="container" th:if="${#lists.size(entryList) > 1}">
@@ -19,7 +19,7 @@
                     <h2 th:text="*{title}">Title</h2>
                     <p th:if="${longText}" th:text="*{#strings.substring(text,0, 100) + '...'}">Text</p>
                     <p th:unless="${longText}" th:text="*{text}">Text</p>
-                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                    <p><a class="btn btn-secondary" href="href" th:href="@{/entry/get/{id}(id=*{id})}" role="button">View details &raquo;</a></p>
                 </div>
             </div>
             <hr>
